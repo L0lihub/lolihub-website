@@ -1454,8 +1454,8 @@
             }
 
             startAutoRefresh() {
-                // Обновление каждые 30 секунд
-                setInterval(() => this.refreshStats(), 30000);
+                // Обновление каждые 60 минут
+                setInterval(() => this.refreshStats(), 600000);
             }
 
             async refreshStats() {
@@ -1622,3 +1622,4 @@
     </script>
 </body>
 </html>
+
