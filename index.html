@@ -1630,17 +1630,15 @@
     <script>
         // Configuration
         const CONFIG = {
-            API: {
-                BASE_URL: 'http://localhost:8080',
+            DISCORD: {
+                GUILD_ID: '1308424089777475676', // Replace with your server ID
                 UPDATE_INTERVALS: {
-                    ONLINE: 15000,
-                    STATS: 30000
+                    ONLINE: 30000,    // 30 seconds
+                    STATS: 60000,     // 1 minute
+                    MESSAGES: 120000  // 2 minutes
                 }
             }
         };
-
-        let currentFilter = 'all';
-        let allMembers = [];
 
         // Typewriter Effect
         const typewriterElement = document.getElementById('typewriter');
@@ -1659,7 +1657,7 @@
         function typeWriter() {
             isEnd = false;
             currentPhrase = phrases[phraseIndex];
-
+            
             if (isDeleting) {
                 typewriterElement.textContent = currentPhrase.substring(0, letterIndex - 1);
                 letterIndex--;
@@ -1667,7 +1665,7 @@
                 typewriterElement.textContent = currentPhrase.substring(0, letterIndex + 1);
                 letterIndex++;
             }
-
+            
             if (!isDeleting && letterIndex === currentPhrase.length) {
                 isEnd = true;
                 isDeleting = true;
@@ -1681,60 +1679,6 @@
                 setTimeout(typeWriter, typeSpeed);
             }
         }
-        async function loadOnlineMembers() {
-            try {
-                const response = await fetch(`${CONFIG.API.BASE_URL}/server/online`);
-                const members = await response.json();
-                allMembers = members;
-                applyFilterToMembers();
-
-                // Обновляем счетчики
-                const playingCount = members.filter(m => m.game).length;
-                const voiceCount = members.filter(m => m.inVoice).length;
-
-                document.getElementById('online-count').textContent = members.length;
-                document.getElementById('playing-count').textContent = playingCount;
-                document.getElementById('voice-count').textContent = voiceCount;
-
-            } catch (error) {
-                console.log('Failed to load online members, using fallback data');
-                // Используем mock данные как fallback
-                allMembers = [...]; // Ваши mock данные здесь
-                applyFilterToMembers();
-            }
-        }
-
-        async function loadServerStats() {
-            try {
-                const response = await fetch(`${CONFIG.API.BASE_URL}/server/stats`);
-                const stats = await response.json();
-
-                document.getElementById('live-members').textContent = stats.onlineMembers;
-                document.getElementById('live-playing').textContent = stats.playingGames;
-                document.getElementById('live-voice').textContent = stats.inVoice;
-
-            } catch (error) {
-                console.log('Failed to load server stats');
-            }
-        }
-
-        // Auto refresh
-        function startAutoRefresh() {
-            loadOnlineMembers();
-            loadServerStats();
-
-            setInterval(loadOnlineMembers, CONFIG.API.UPDATE_INTERVALS.ONLINE);
-            setInterval(loadServerStats, CONFIG.API.UPDATE_INTERVALS.STATS);
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            if (typewriterElement) typeWriter();
-
-            setupFilterSystem();
-            startAutoRefresh(); // Запускаем загрузку данных
-        });
-    </script>
 
         // Particles Animation
         const canvas = document.getElementById('particles');
