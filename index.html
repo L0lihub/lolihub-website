@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lolihub - The Strongest Battlegrounds Clan</title>
-    <link rel="icon" <link rel="icon" href="https://cdn.discordapp.com/attachments/1375093996778422293/1395767232537038928/DeWatermark.ai_1748878695056.jpeg?ex=68dddcc8&is=68dc8b48&hm=9165df7ea9e16dc0103a0eefedee31d6acc504dcddf8764c39d8dcdf52976f51&" type="image/png">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%239b5cff' rx='20'/><text x='50%' y='60%' font-family='Arial' font-size='50' text-anchor='middle' fill='white'>LH</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -193,6 +193,45 @@
         @keyframes blink {
             0%, 100% { border-color: var(--accent); }
             50% { border-color: transparent; }
+        }
+
+        /* Live Stats in Hero */
+        .live-stats {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px 0 30px;
+            flex-wrap: wrap;
+        }
+
+        .live-stat {
+            background: rgba(155, 92, 255, 0.1);
+            padding: 12px 25px;
+            border-radius: 25px;
+            border: 1px solid var(--accent);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .live-stat:hover, .live-stat.active {
+            background: var(--accent);
+            color: black;
+            transform: translateY(-2px);
+        }
+
+        .live-stat i {
+            color: var(--accent);
+            transition: color 0.3s ease;
+        }
+
+        .live-stat:hover i, .live-stat.active i {
+            color: black;
         }
 
         .btn {
@@ -385,6 +424,173 @@
         .stat-label {
             color: var(--muted);
             font-size: 0.9rem;
+        }
+
+        /* Online Members Section */
+        .online-section {
+            background: var(--panel);
+        }
+
+        .online-filters {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 12px 25px;
+            background: rgba(155, 92, 255, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 25px;
+            color: var(--text-light);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--accent);
+            color: black;
+            transform: translateY(-2px);
+        }
+
+        .online-stats {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .online-stat {
+            background: rgba(155, 92, 255, 0.1);
+            padding: 15px 25px;
+            border-radius: 10px;
+            border: 1px solid var(--accent);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .online-stat:hover, .online-stat.active {
+            background: var(--accent);
+            color: black;
+            transform: translateY(-2px);
+        }
+
+        .online-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .online-member {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(155, 92, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .online-member:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .member-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+        }
+
+        .member-name {
+            font-weight: 500;
+        }
+
+        .playing {
+            font-size: 0.8rem;
+            color: var(--success);
+            margin-top: 5px;
+        }
+
+        .voice {
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-top: 5px;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-left: auto;
+        }
+
+        .status-online { background: var(--success); }
+        .status-idle { background: var(--warning); }
+        .status-dnd { background: var(--danger); }
+        .status-offline { background: var(--muted); }
+
+        /* Voice Channels Section */
+        .voice-section {
+            background: var(--bg);
+        }
+
+        .voice-channels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .voice-channel {
+            background: var(--panel);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(155, 92, 255, 0.1);
+        }
+
+        .channel-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .channel-members {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .channel-member {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(155, 92, 255, 0.1);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .member-avatar-small {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
         }
 
         /* Events Section */
@@ -655,6 +861,51 @@
             max-height: 500px;
         }
 
+        /* Recent Messages Section */
+        .messages-section {
+            background: var(--panel);
+        }
+
+        .messages-container {
+            max-width: 800px;
+            margin: 30px auto 0;
+        }
+
+        .message {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(155, 92, 255, 0.1);
+        }
+
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .message-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .message-author {
+            font-weight: 500;
+            color: var(--accent);
+        }
+
+        .message-time {
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+
+        .message-content {
+            color: var(--text-light);
+        }
+
         /* Footer */
         footer {
             background: var(--panel);
@@ -755,6 +1006,39 @@
             animation: pulseUpdate 0.6s ease;
         }
 
+        /* Join Notification */
+        .join-notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--panel);
+            border: 1px solid var(--accent);
+            border-radius: 10px;
+            padding: 15px;
+            animation: slideIn 0.5s ease;
+            z-index: 1001;
+            max-width: 300px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification-content img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+        }
+
         /* Scroll to Top Button */
         .scroll-to-top {
             position: fixed;
@@ -783,6 +1067,20 @@
         .scroll-to-top:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(155, 92, 255, 0.4);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            color: var(--muted);
+            padding: 40px 20px;
+            grid-column: 1 / -1;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            opacity: 0.5;
         }
 
         /* Responsive */
@@ -856,6 +1154,24 @@
             .social-icons {
                 justify-content: center;
             }
+
+            .online-members {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+
+            .voice-channels {
+                grid-template-columns: 1fr;
+            }
+
+            .online-filters {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .filter-btn {
+                width: 200px;
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -873,6 +1189,7 @@
                 <a href="#features">Features</a>
                 <a href="#leaderboard">Leaderboard</a>
                 <a href="#stats">Stats</a>
+                <a href="#online">Online</a>
                 <a href="#events">Events</a>
                 <a href="#staff">Staff</a>
                 <a href="#gallery">Gallery</a>
@@ -895,6 +1212,23 @@
                 <div class="tagline">
                     <span id="typewriter" class="typewriter">Dominance. Strategy. Brotherhood.</span>
                 </div>
+                
+                <!-- Live Stats -->
+                <div class="live-stats">
+                    <div class="live-stat active" data-filter="all">
+                        <i class="fas fa-users"></i>
+                        <span id="live-members">0</span> онлайн
+                    </div>
+                    <div class="live-stat" data-filter="playing">
+                        <i class="fas fa-gamepad"></i>
+                        <span id="live-playing">0</span> в игре
+                    </div>
+                    <div class="live-stat" data-filter="voice">
+                        <i class="fas fa-microphone"></i>
+                        <span id="live-voice">0</span> в войсе
+                    </div>
+                </div>
+                
                 <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
                     <a href="https://discord.gg/6tjxnWUBQP" class="btn" target="_blank">Join Our Discord</a>
                     <a href="#leaderboard" class="btn btn-outline">View Leaderboard</a>
@@ -986,10 +1320,10 @@
                 <div class="leaderboard-row">
                     <div class="rank rank-3">3 🥉</div>
                     <div class="player">
-                        <div class="player-avatar" style="background-image: url('https://cdn.discordapp.com/avatars/1134359282268262430/cd95e50f8dc20262bdbffad5d1350fcf.png?size=2048'); background-size: cover; background-position: center;"></div>
-                        <div>[LH] Zetka</div>
+                        <div class="player-avatar" style="background-image: url('https://cdn.discordapp.com/avatars/1011673048090411039/23c687f5482ff66a98aca89cfb294f84.png?size=2048'); background-size: cover; background-position: center;"></div>
+                        <div>[LH] Minty</div>
                     </div>
-                    <div class="kills" id="kills-minty">24,298</div>
+                    <div class="kills" id="kills-minty">20,298</div>
                     <div>sosalkin</div>
                 </div>
                 
@@ -1039,6 +1373,65 @@
                     <div class="stat-number" id="win-rate">78%</div>
                     <div class="stat-label">Win Rate</div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Online Members Section -->
+    <section class="section online-section" id="online">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 20px; color: var(--accent);">Online Now</h2>
+            <p style="text-align: center; color: var(--muted); margin-bottom: 50px;">See who's active right now on our Discord server</p>
+            
+            <!-- Filter Buttons -->
+            <div class="online-filters">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-users"></i>
+                    All Online
+                </button>
+                <button class="filter-btn" data-filter="playing">
+                    <i class="fas fa-gamepad"></i>
+                    Playing Games
+                </button>
+                <button class="filter-btn" data-filter="voice">
+                    <i class="fas fa-microphone"></i>
+                    In Voice
+                </button>
+                <button class="filter-btn" data-filter="streaming">
+                    <i class="fas fa-broadcast-tower"></i>
+                    Streaming
+                </button>
+            </div>
+            
+            <div class="online-stats">
+                <div class="online-stat active" data-filter="all">
+                    <i class="fas fa-users"></i>
+                    <span id="online-count">0</span> Online
+                </div>
+                <div class="online-stat" data-filter="playing">
+                    <i class="fas fa-gamepad"></i>
+                    <span id="playing-count">0</span> Playing
+                </div>
+                <div class="online-stat" data-filter="voice">
+                    <i class="fas fa-microphone"></i>
+                    <span id="voice-count">0</span> In Voice
+                </div>
+            </div>
+            
+            <div class="online-members" id="online-members">
+                <!-- Online members will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Voice Channels Section -->
+    <section class="section voice-section" id="voice">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 20px; color: var(--accent);">Voice Channels</h2>
+            <p style="text-align: center; color: var(--muted); margin-bottom: 50px;">Join the conversation in our active voice channels</p>
+            
+            <div class="voice-channels" id="voice-channels">
+                <!-- Voice channels will be loaded here -->
             </div>
         </div>
     </section>
@@ -1120,8 +1513,8 @@
                     <div class="staff-bio">The strongest hearts have the most scars.</div>
                     <div class="traits">
                         <span class="trait">Femboy</span>
-                        <span class="trait">good juice</span>
                         <span class="trait">blowjob</span>
+                        <span class="trait">good juice</span>
                     </div>
                 </div>
                 
@@ -1149,11 +1542,13 @@
                             <div class="staff-role">anal patron</div>
                         </div>
                     </div>
-                    <div class="staff-bio">The dick is covered in fuel oil.
-There 's a faucet in the ass.
-Mom, I'm an auto mechanic.
-It 's better to clean the headlights with a dick.
-Than to sit for 4 pairs..</div>
+                    <div class="staff-bio">
+                        The dick is covered in fuel oil.
+                        There 's a faucet in the ass .
+                        Mom, I'm an auto mechanic.
+                        It 's better to clean the headlights with a dick .
+                        Than to sit for 4 pairs.
+                    </div>
                     <div class="traits">
                         <span class="trait">Defensive Expert</span>
                         <span class="trait">Patient Teacher</span>
@@ -1213,6 +1608,18 @@ Than to sit for 4 pairs..</div>
                         <p>Recognizing top performers</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Messages Section -->
+    <section class="section messages-section" id="messages">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 20px; color: var(--accent);">Recent Activity</h2>
+            <p style="text-align: center; color: var(--muted); margin-bottom: 50px;">Latest discussions from our Discord server</p>
+            
+            <div class="messages-container" id="recent-messages">
+                <!-- Recent messages will be loaded here -->
             </div>
         </div>
     </section>
@@ -1288,6 +1695,7 @@ Than to sit for 4 pairs..</div>
                         <li><a href="#home">Home</a></li>
                         <li><a href="#features">Features</a></li>
                         <li><a href="#leaderboard">Leaderboard</a></li>
+                        <li><a href="#online">Online</a></li>
                         <li><a href="#events">Events</a></li>
                         <li><a href="#staff">Staff</a></li>
                         <li><a href="#faq">FAQ</a></li>
@@ -1332,6 +1740,22 @@ Than to sit for 4 pairs..</div>
     </a>
 
     <script>
+        // Configuration
+        const CONFIG = {
+            API: {
+                BASE_URL: 'https://l0lihub.github.io/lolihub-website', // Замени на свой URL
+                UPDATE_INTERVALS: {
+                    ONLINE: 10000,    // 10 seconds
+                    STATS: 30000,     // 30 seconds
+                    MESSAGES: 60000   // 60 seconds
+                }
+            }
+        };
+
+        // Current filter state
+        let currentFilter = 'all';
+        let allMembers = [];
+
         // Typewriter Effect
         const typewriterElement = document.getElementById('typewriter');
         const phrases = [
@@ -1428,6 +1852,325 @@ Than to sit for 4 pairs..</div>
             requestAnimationFrame(drawParticles);
         }
 
+        // Filter System
+        function setupFilterSystem() {
+            // Hero section filters
+            document.querySelectorAll('.live-stat').forEach(stat => {
+                stat.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    setActiveFilter(filter);
+                    
+                    // Scroll to online section
+                    document.getElementById('online').scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Online section filter buttons
+            document.querySelectorAll('.filter-btn, .online-stat').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    setActiveFilter(filter);
+                });
+            });
+        }
+
+        function setActiveFilter(filter) {
+            currentFilter = filter;
+            
+            // Update active states
+            document.querySelectorAll('.live-stat, .filter-btn, .online-stat').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            document.querySelectorAll(`[data-filter="${filter}"]`).forEach(el => {
+                el.classList.add('active');
+            });
+            
+            // Apply filter to members
+            applyFilterToMembers();
+        }
+
+        function applyFilterToMembers() {
+            const container = document.getElementById('online-members');
+            let filteredMembers = [];
+            
+            switch(currentFilter) {
+                case 'all':
+                    filteredMembers = allMembers;
+                    break;
+                case 'playing':
+                    filteredMembers = allMembers.filter(m => m.game);
+                    break;
+                case 'voice':
+                    filteredMembers = allMembers.filter(m => m.inVoice);
+                    break;
+                case 'streaming':
+                    filteredMembers = allMembers.filter(m => m.streaming);
+                    break;
+                default:
+                    filteredMembers = allMembers;
+            }
+            
+            if (filteredMembers.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-users-slash"></i>
+                        <h3>No members found</h3>
+                        <p>No members match the current filter</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = filteredMembers.map(member => `
+                <div class="online-member">
+                    <img src="${member.avatar}" alt="${member.username}" class="member-avatar">
+                    <div style="flex: 1;">
+                        <div class="member-name">${member.displayName || member.username}</div>
+                        ${member.game ? `<div class="playing">🎮 ${member.game.name}</div>` : ''}
+                        ${member.inVoice ? `<div class="voice">🎤 In voice channel</div>` : ''}
+                        ${member.streaming ? `<div class="playing" style="color: var(--accent);">🔴 Streaming</div>` : ''}
+                    </div>
+                    <div class="status-indicator status-${member.status || 'online'}"></div>
+                </div>
+            `).join('');
+        }
+
+        // Real Discord Integration with Bot API
+        class DiscordIntegration {
+            constructor() {
+                this.init();
+            }
+
+            async init() {
+                await this.loadServerStats();
+                await this.loadOnlineMembers();
+                await this.loadVoiceChannels();
+                await this.loadRecentMessages();
+                this.startAutoRefresh();
+            }
+
+            async makeAPIRequest(endpoint) {
+                try {
+                    const response = await fetch(`${CONFIG.API.BASE_URL}${endpoint}`);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return await response.json();
+                } catch (error) {
+                    console.error(`API request failed for ${endpoint}:`, error);
+                    throw error;
+                }
+            }
+
+            async loadServerStats() {
+                try {
+                    const data = await this.makeAPIRequest('/server/stats');
+                    this.updateServerStats(data);
+                } catch (error) {
+                    console.log('Failed to load server stats from API, using mock data');
+                    this.useMockStats();
+                }
+            }
+
+            updateServerStats(data) {
+                if (!data) return;
+                
+                document.getElementById('live-members').textContent = data.onlineMembers || 0;
+                document.getElementById('online-count').textContent = data.onlineMembers || 0;
+                document.getElementById('live-playing').textContent = data.playingGames || 0;
+                document.getElementById('playing-count').textContent = data.playingGames || 0;
+                document.getElementById('live-voice').textContent = data.inVoice || 0;
+                document.getElementById('voice-count').textContent = data.inVoice || 0;
+                
+                // Update total members in stats section
+                if (data.totalMembers) {
+                    document.getElementById('total-members').textContent = data.totalMembers + '+';
+                }
+            }
+
+            async loadOnlineMembers() {
+                try {
+                    const members = await this.makeAPIRequest('/server/online');
+                    this.updateOnlineMembers(members);
+                } catch (error) {
+                    console.log('Failed to load online members from API, using mock data');
+                    this.useMockMembers();
+                }
+            }
+
+            updateOnlineMembers(members) {
+                if (!members || !Array.isArray(members)) return;
+                
+                allMembers = members;
+                this.updateFilterCounts(members);
+                applyFilterToMembers();
+            }
+
+            updateFilterCounts(members) {
+                const playingCount = members.filter(m => m.game).length;
+                const voiceCount = members.filter(m => m.inVoice).length;
+                const streamingCount = members.filter(m => m.streaming).length;
+
+                // Update counts in real-time
+                document.getElementById('playing-count').textContent = playingCount;
+                document.getElementById('voice-count').textContent = voiceCount;
+            }
+
+            async loadVoiceChannels() {
+                try {
+                    const voiceChannels = await this.makeAPIRequest('/server/voice-channels');
+                    this.updateVoiceChannels(voiceChannels);
+                } catch (error) {
+                    console.log('Failed to load voice channels from API');
+                    this.updateVoiceChannels([]);
+                }
+            }
+
+            updateVoiceChannels(voiceChannels) {
+                const container = document.getElementById('voice-channels');
+                if (!container) return;
+                
+                if (!voiceChannels || voiceChannels.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align: center; color: var(--muted); grid-column: 1 / -1;">
+                            <i class="fas fa-microphone-slash" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                            <p>Никто не в голосовых каналах</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = voiceChannels.map(channel => `
+                    <div class="voice-channel">
+                        <div class="channel-header">
+                            <i class="fas fa-volume-up"></i>
+                            <h3>${channel.name}</h3>
+                            <span style="margin-left: auto; color: var(--accent);">${channel.members.length} участников</span>
+                        </div>
+                        <div class="channel-members">
+                            ${channel.members.map(member => `
+                                <div class="channel-member">
+                                    <img src="${member.avatar}" alt="${member.username}" class="member-avatar-small">
+                                    <span>${member.displayName || member.username}</span>
+                                    ${member.mute ? '<i class="fas fa-microphone-slash" style="color: var(--danger);"></i>' : ''}
+                                    ${member.deaf ? '<i class="fas fa-deaf" style="color: var(--muted);"></i>' : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            async loadRecentMessages() {
+                try {
+                    const messages = await this.makeAPIRequest('/server/recent-messages');
+                    this.updateRecentMessages(messages);
+                } catch (error) {
+                    console.log('Failed to load recent messages from API');
+                    this.useMockMessages();
+                }
+            }
+
+            updateRecentMessages(messages) {
+                const container = document.getElementById('recent-messages');
+                if (!container) return;
+                
+                if (!messages || messages.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align: center; color: var(--muted);">
+                            <i class="fas fa-comment-slash" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                            <p>Нет сообщений для отображения</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = messages.map(msg => `
+                    <div class="message">
+                        <div class="message-header">
+                            <img src="${msg.author.avatar}" alt="${msg.author.username}" class="message-avatar">
+                            <span class="message-author">${msg.author.username}</span>
+                            <span class="message-time">#${msg.channel}</span>
+                            <span class="message-time" style="margin-left: auto;">
+                                ${new Date(msg.timestamp).toLocaleTimeString()}
+                            </span>
+                        </div>
+                        <div class="message-content">
+                            ${msg.content || '(вложение)'}
+                            ${msg.attachments ? ' 📎' : ''}
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Mock data for fallback
+            useMockStats() {
+                const mockStats = {
+                    totalMembers: 75,
+                    onlineMembers: 24,
+                    playingGames: 8,
+                    inVoice: 6
+                };
+                this.updateServerStats(mockStats);
+            }
+
+            useMockMembers() {
+                const mockMembers = [
+                    {
+                        id: '1',
+                        username: 'Maffioza',
+                        displayName: 'Maffioza',
+                        avatar: 'https://cdn.discordapp.com/avatars/1033615399763320862/5b2be06b8f408ef53a251aeb4f143673.png',
+                        status: 'online',
+                        game: { name: 'The Strongest Battlegrounds' },
+                        streaming: null,
+                        inVoice: true,
+                        voiceChannel: 'General'
+                    },
+                    {
+                        id: '2',
+                        username: 'linux',
+                        displayName: 'linux',
+                        avatar: 'https://cdn.discordapp.com/avatars/1012982396674641930/c7cb8fae595373fe5789a9c3f7a3d531.png',
+                        status: 'idle',
+                        game: null,
+                        streaming: null,
+                        inVoice: false,
+                        voiceChannel: null
+                    }
+                ];
+                this.updateOnlineMembers(mockMembers);
+            }
+
+            useMockMessages() {
+                const mockMessages = [
+                    {
+                        id: '1',
+                        content: 'Новый турнир в эти выходные! Готовьтесь! 🏆',
+                        author: {
+                            username: 'Maffioza',
+                            avatar: 'https://cdn.discordapp.com/avatars/1033615399763320862/5b2be06b8f408ef53a251aeb4f143673.png',
+                            bot: false
+                        },
+                        channel: 'general',
+                        timestamp: Date.now() - 2 * 60 * 60 * 1000,
+                        attachments: false
+                    }
+                ];
+                this.updateRecentMessages(mockMessages);
+            }
+
+            startAutoRefresh() {
+                setInterval(() => this.loadServerStats(), CONFIG.API.UPDATE_INTERVALS.STATS);
+                setInterval(() => this.loadOnlineMembers(), CONFIG.API.UPDATE_INTERVALS.ONLINE);
+                setInterval(() => this.loadVoiceChannels(), CONFIG.API.UPDATE_INTERVALS.ONLINE);
+                setInterval(() => this.loadRecentMessages(), CONFIG.API.UPDATE_INTERVALS.MESSAGES);
+            }
+        }
+
         // Real-time TSB Stats Tracker
         class TSBStatsTracker {
             constructor() {
@@ -1442,8 +2185,7 @@ Than to sit for 4 pairs..</div>
 
             async loadInitialStats() {
                 try {
-                    // Имитация загрузки начальной статистики
-                    // В реальности здесь будет запрос к вашему API
+                    // Mock data - replace with actual API calls
                     this.stats = {
                         'maffioza': { kills: 45727 },
                         'estic56': { kills: 40512 },
@@ -1458,14 +2200,13 @@ Than to sit for 4 pairs..</div>
             }
 
             startAutoRefresh() {
-                // Обновление каждые 30 секунд
-                setInterval(() => this.refreshStats(), 700000);
+                // Update every 2 minutes
+                setInterval(() => this.refreshStats(), 120000);
             }
 
             async refreshStats() {
                 try {
-                    // Имитация получения новых данных
-                    // В реальности здесь будет запрос к вашему API
+                    // Mock new data - replace with actual API
                     const newStats = {
                         'maffioza': { kills: 45727 + Math.floor(Math.random() * 50) },
                         'estic56': { kills: 40512 + Math.floor(Math.random() * 45) },
@@ -1482,7 +2223,6 @@ Than to sit for 4 pairs..</div>
             }
 
             updateUI() {
-                // Обновление интерфейса
                 Object.keys(this.stats).forEach(playerId => {
                     const kills = this.stats[playerId].kills;
                     this.updatePlayerKills(playerId, kills);
@@ -1494,7 +2234,7 @@ Than to sit for 4 pairs..</div>
                 if (killsElement) {
                     killsElement.textContent = kills.toLocaleString();
                     
-                    // Анимация обновления
+                    // Animation
                     killsElement.classList.add('kills-update');
                     setTimeout(() => {
                         killsElement.classList.remove('kills-update');
@@ -1507,19 +2247,23 @@ Than to sit for 4 pairs..</div>
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
 
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+        if (mobileMenuBtn && navLinks) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        }
 
         // Navbar Scroll Effect
         const navbar = document.querySelector('.navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+        if (navbar) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        }
 
         // Smooth Scrolling for Navigation Links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -1532,27 +2276,30 @@ Than to sit for 4 pairs..</div>
                         block: 'start'
                     });
                     // Close mobile menu if open
-                    navLinks.classList.remove('active');
+                    if (navLinks) navLinks.classList.remove('active');
                 }
             });
         });
 
         // Scroll to Top Button
         const scrollToTopBtn = document.getElementById('scrollToTop');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                scrollToTopBtn.classList.add('visible');
-            } else {
-                scrollToTopBtn.classList.remove('visible');
-            }
-        });
-        scrollToTopBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+        if (scrollToTopBtn) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollToTopBtn.classList.add('visible');
+                } else {
+                    scrollToTopBtn.classList.remove('visible');
+                }
             });
-        });
+            
+            scrollToTopBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
 
         // FAQ Accordion
         document.querySelectorAll('.faq-question').forEach(question => {
@@ -1593,6 +2340,8 @@ Than to sit for 4 pairs..</div>
 
         function animateValue(id, start, end, duration) {
             const obj = document.getElementById(id);
+            if (!obj) return;
+            
             let startTimestamp = null;
             const step = (timestamp) => {
                 if (!startTimestamp) startTimestamp = timestamp;
@@ -1617,16 +2366,16 @@ Than to sit for 4 pairs..</div>
             });
         });
 
-        // Start animations and stats tracker
+        // Start all systems
         document.addEventListener('DOMContentLoaded', () => {
-            typeWriter();
-            drawParticles();
+            // Check if elements exist before initializing
+            if (typewriterElement) typeWriter();
+            if (canvas) drawParticles();
+            
+            setupFilterSystem();
             new TSBStatsTracker();
+            new DiscordIntegration();
         });
     </script>
 </body>
 </html>
-
-
-
-
