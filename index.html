@@ -1630,15 +1630,15 @@
     <script>
         // Configuration
         const CONFIG = {
-            DISCORD: {
-                GUILD_ID: '1308424089777475676', // Replace with your server ID
-                UPDATE_INTERVALS: {
-                    ONLINE: 30000,    // 30 seconds
-                    STATS: 60000,     // 1 minute
-                    MESSAGES: 120000  // 2 minutes
-                }
-            }
-        };
+    API: {
+        BASE_URL: 'http://localhost:8081', // или порт который выбрал бот
+        UPDATE_INTERVALS: {
+            ONLINE: 10000,
+            STATS: 30000,
+            MESSAGES: 60000
+        }
+    }
+};
 
         // Typewriter Effect
         const typewriterElement = document.getElementById('typewriter');
@@ -2115,3 +2115,4 @@
     </script>
 </body>
 </html>
+
