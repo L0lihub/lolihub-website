@@ -215,23 +215,10 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .live-stat:hover, .live-stat.active {
-            background: var(--accent);
-            color: black;
-            transform: translateY(-2px);
         }
 
         .live-stat i {
             color: var(--accent);
-            transition: color 0.3s ease;
-        }
-
-        .live-stat:hover i, .live-stat.active i {
-            color: black;
         }
 
         .btn {
@@ -431,35 +418,6 @@
             background: var(--panel);
         }
 
-        .online-filters {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 12px 25px;
-            background: rgba(155, 92, 255, 0.1);
-            border: 1px solid var(--accent);
-            border-radius: 25px;
-            color: var(--text-light);
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--accent);
-            color: black;
-            transform: translateY(-2px);
-        }
-
         .online-stats {
             display: flex;
             gap: 20px;
@@ -476,14 +434,6 @@
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
             text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .online-stat:hover, .online-stat.active {
-            background: var(--accent);
-            color: black;
-            transform: translateY(-2px);
         }
 
         .online-members {
@@ -525,24 +475,6 @@
             color: var(--success);
             margin-top: 5px;
         }
-
-        .voice {
-            font-size: 0.8rem;
-            color: var(--accent);
-            margin-top: 5px;
-        }
-
-        .status-indicator {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            margin-left: auto;
-        }
-
-        .status-online { background: var(--success); }
-        .status-idle { background: var(--warning); }
-        .status-dnd { background: var(--danger); }
-        .status-offline { background: var(--muted); }
 
         /* Voice Channels Section */
         .voice-section {
@@ -1069,20 +1001,6 @@
             box-shadow: 0 5px 15px rgba(155, 92, 255, 0.4);
         }
 
-        /* Empty State */
-        .empty-state {
-            text-align: center;
-            color: var(--muted);
-            padding: 40px 20px;
-            grid-column: 1 / -1;
-        }
-
-        .empty-state i {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            opacity: 0.5;
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
             .navbar {
@@ -1162,16 +1080,6 @@
             .voice-channels {
                 grid-template-columns: 1fr;
             }
-
-            .online-filters {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .filter-btn {
-                width: 200px;
-                justify-content: center;
-            }
         }
     </style>
 </head>
@@ -1215,15 +1123,15 @@
                 
                 <!-- Live Stats -->
                 <div class="live-stats">
-                    <div class="live-stat active" data-filter="all">
+                    <div class="live-stat">
                         <i class="fas fa-users"></i>
                         <span id="live-members">0</span> онлайн
                     </div>
-                    <div class="live-stat" data-filter="playing">
+                    <div class="live-stat">
                         <i class="fas fa-gamepad"></i>
                         <span id="live-playing">0</span> в игре
                     </div>
-                    <div class="live-stat" data-filter="voice">
+                    <div class="live-stat">
                         <i class="fas fa-microphone"></i>
                         <span id="live-voice">0</span> в войсе
                     </div>
@@ -1383,36 +1291,16 @@
             <h2 style="text-align: center; margin-bottom: 20px; color: var(--accent);">Online Now</h2>
             <p style="text-align: center; color: var(--muted); margin-bottom: 50px;">See who's active right now on our Discord server</p>
             
-            <!-- Filter Buttons -->
-            <div class="online-filters">
-                <button class="filter-btn active" data-filter="all">
-                    <i class="fas fa-users"></i>
-                    All Online
-                </button>
-                <button class="filter-btn" data-filter="playing">
-                    <i class="fas fa-gamepad"></i>
-                    Playing Games
-                </button>
-                <button class="filter-btn" data-filter="voice">
-                    <i class="fas fa-microphone"></i>
-                    In Voice
-                </button>
-                <button class="filter-btn" data-filter="streaming">
-                    <i class="fas fa-broadcast-tower"></i>
-                    Streaming
-                </button>
-            </div>
-            
             <div class="online-stats">
-                <div class="online-stat active" data-filter="all">
+                <div class="online-stat">
                     <i class="fas fa-users"></i>
                     <span id="online-count">0</span> Online
                 </div>
-                <div class="online-stat" data-filter="playing">
+                <div class="online-stat">
                     <i class="fas fa-gamepad"></i>
                     <span id="playing-count">0</span> Playing
                 </div>
-                <div class="online-stat" data-filter="voice">
+                <div class="online-stat">
                     <i class="fas fa-microphone"></i>
                     <span id="voice-count">0</span> In Voice
                 </div>
@@ -1742,19 +1630,15 @@
     <script>
         // Configuration
         const CONFIG = {
-            API: {
-                BASE_URL: 'https://l0lihub.github.io/lolihub-website', // Замени на свой URL
+            DISCORD: {
+                GUILD_ID: '1308424089777475676', // Replace with your server ID
                 UPDATE_INTERVALS: {
-                    ONLINE: 10000,    // 10 seconds
-                    STATS: 30000,     // 30 seconds
-                    MESSAGES: 60000   // 60 seconds
+                    ONLINE: 30000,    // 30 seconds
+                    STATS: 60000,     // 1 minute
+                    MESSAGES: 120000  // 2 minutes
                 }
             }
         };
-
-        // Current filter state
-        let currentFilter = 'all';
-        let allMembers = [];
 
         // Typewriter Effect
         const typewriterElement = document.getElementById('typewriter');
@@ -1852,322 +1736,185 @@
             requestAnimationFrame(drawParticles);
         }
 
-        // Filter System
-        function setupFilterSystem() {
-            // Hero section filters
-            document.querySelectorAll('.live-stat').forEach(stat => {
-                stat.addEventListener('click', function() {
-                    const filter = this.getAttribute('data-filter');
-                    setActiveFilter(filter);
-                    
-                    // Scroll to online section
-                    document.getElementById('online').scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
-            });
-
-            // Online section filter buttons
-            document.querySelectorAll('.filter-btn, .online-stat').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const filter = this.getAttribute('data-filter');
-                    setActiveFilter(filter);
-                });
-            });
-        }
-
-        function setActiveFilter(filter) {
-            currentFilter = filter;
-            
-            // Update active states
-            document.querySelectorAll('.live-stat, .filter-btn, .online-stat').forEach(el => {
-                el.classList.remove('active');
-            });
-            
-            document.querySelectorAll(`[data-filter="${filter}"]`).forEach(el => {
-                el.classList.add('active');
-            });
-            
-            // Apply filter to members
-            applyFilterToMembers();
-        }
-
-        function applyFilterToMembers() {
-            const container = document.getElementById('online-members');
-            let filteredMembers = [];
-            
-            switch(currentFilter) {
-                case 'all':
-                    filteredMembers = allMembers;
-                    break;
-                case 'playing':
-                    filteredMembers = allMembers.filter(m => m.game);
-                    break;
-                case 'voice':
-                    filteredMembers = allMembers.filter(m => m.inVoice);
-                    break;
-                case 'streaming':
-                    filteredMembers = allMembers.filter(m => m.streaming);
-                    break;
-                default:
-                    filteredMembers = allMembers;
-            }
-            
-            if (filteredMembers.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-users-slash"></i>
-                        <h3>No members found</h3>
-                        <p>No members match the current filter</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            container.innerHTML = filteredMembers.map(member => `
-                <div class="online-member">
-                    <img src="${member.avatar}" alt="${member.username}" class="member-avatar">
-                    <div style="flex: 1;">
-                        <div class="member-name">${member.displayName || member.username}</div>
-                        ${member.game ? `<div class="playing">🎮 ${member.game.name}</div>` : ''}
-                        ${member.inVoice ? `<div class="voice">🎤 In voice channel</div>` : ''}
-                        ${member.streaming ? `<div class="playing" style="color: var(--accent);">🔴 Streaming</div>` : ''}
-                    </div>
-                    <div class="status-indicator status-${member.status || 'online'}"></div>
-                </div>
-            `).join('');
-        }
-
-        // Real Discord Integration with Bot API
+        // Discord Integration
         class DiscordIntegration {
             constructor() {
+                this.previousMembers = new Set();
                 this.init();
             }
 
             async init() {
                 await this.loadServerStats();
                 await this.loadOnlineMembers();
-                await this.loadVoiceChannels();
                 await this.loadRecentMessages();
                 this.startAutoRefresh();
             }
 
-            async makeAPIRequest(endpoint) {
-                try {
-                    const response = await fetch(`${CONFIG.API.BASE_URL}${endpoint}`);
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return await response.json();
-                } catch (error) {
-                    console.error(`API request failed for ${endpoint}:`, error);
-                    throw error;
-                }
-            }
-
             async loadServerStats() {
                 try {
-                    const data = await this.makeAPIRequest('/server/stats');
-                    this.updateServerStats(data);
+                    // Using Discord widget API (public, no token needed)
+                    const response = await fetch(`https://discord.com/api/guilds/${CONFIG.DISCORD.GUILD_ID}/widget.json`);
+                    const data = await response.json();
+                    
+                    if (data) {
+                        this.updateServerStats(data);
+                    }
                 } catch (error) {
-                    console.log('Failed to load server stats from API, using mock data');
-                    this.useMockStats();
+                    console.log('Failed to load Discord stats:', error);
+                    // Fallback data
+                    this.updateServerStats({
+                        presence_count: 24,
+                        members: []
+                    });
                 }
             }
 
             updateServerStats(data) {
-                if (!data) return;
+                const onlineCount = data.presence_count || 0;
+                const members = data.members || [];
                 
-                document.getElementById('live-members').textContent = data.onlineMembers || 0;
-                document.getElementById('online-count').textContent = data.onlineMembers || 0;
-                document.getElementById('live-playing').textContent = data.playingGames || 0;
-                document.getElementById('playing-count').textContent = data.playingGames || 0;
-                document.getElementById('live-voice').textContent = data.inVoice || 0;
-                document.getElementById('voice-count').textContent = data.inVoice || 0;
+                // Update live stats
+                document.getElementById('live-members').textContent = onlineCount;
+                document.getElementById('online-count').textContent = onlineCount;
                 
-                // Update total members in stats section
-                if (data.totalMembers) {
-                    document.getElementById('total-members').textContent = data.totalMembers + '+';
-                }
+                const playing = members.filter(member => member.game).length;
+                document.getElementById('live-playing').textContent = playing;
+                document.getElementById('playing-count').textContent = playing;
             }
 
             async loadOnlineMembers() {
                 try {
-                    const members = await this.makeAPIRequest('/server/online');
-                    this.updateOnlineMembers(members);
+                    const response = await fetch(`https://discord.com/api/guilds/${CONFIG.DISCORD.GUILD_ID}/widget.json`);
+                    const data = await response.json();
+                    
+                    if (data && data.members) {
+                        this.updateOnlineMembers(data.members);
+                        this.detectNewMembers(data.members);
+                    }
                 } catch (error) {
-                    console.log('Failed to load online members from API, using mock data');
-                    this.useMockMembers();
+                    console.log('Failed to load online members:', error);
+                    // Show fallback message
+                    document.getElementById('online-members').innerHTML = `
+                        <div style="text-align: center; color: var(--muted); grid-column: 1 / -1;">
+                            <i class="fas fa-wifi-slash" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                            <p>Unable to load online members</p>
+                        </div>
+                    `;
                 }
             }
 
             updateOnlineMembers(members) {
-                if (!members || !Array.isArray(members)) return;
+                const container = document.getElementById('online-members');
+                const humanMembers = members.filter(member => !member.bot);
                 
-                allMembers = members;
-                this.updateFilterCounts(members);
-                applyFilterToMembers();
-            }
-
-            updateFilterCounts(members) {
-                const playingCount = members.filter(m => m.game).length;
-                const voiceCount = members.filter(m => m.inVoice).length;
-                const streamingCount = members.filter(m => m.streaming).length;
-
-                // Update counts in real-time
-                document.getElementById('playing-count').textContent = playingCount;
-                document.getElementById('voice-count').textContent = voiceCount;
-            }
-
-            async loadVoiceChannels() {
-                try {
-                    const voiceChannels = await this.makeAPIRequest('/server/voice-channels');
-                    this.updateVoiceChannels(voiceChannels);
-                } catch (error) {
-                    console.log('Failed to load voice channels from API');
-                    this.updateVoiceChannels([]);
-                }
-            }
-
-            updateVoiceChannels(voiceChannels) {
-                const container = document.getElementById('voice-channels');
-                if (!container) return;
-                
-                if (!voiceChannels || voiceChannels.length === 0) {
+                if (humanMembers.length === 0) {
                     container.innerHTML = `
                         <div style="text-align: center; color: var(--muted); grid-column: 1 / -1;">
-                            <i class="fas fa-microphone-slash" style="font-size: 2rem; margin-bottom: 10px;"></i>
-                            <p>Никто не в голосовых каналах</p>
+                            <i class="fas fa-users-slash" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                            <p>No members online right now</p>
                         </div>
                     `;
                     return;
                 }
 
-                container.innerHTML = voiceChannels.map(channel => `
-                    <div class="voice-channel">
-                        <div class="channel-header">
-                            <i class="fas fa-volume-up"></i>
-                            <h3>${channel.name}</h3>
-                            <span style="margin-left: auto; color: var(--accent);">${channel.members.length} участников</span>
-                        </div>
-                        <div class="channel-members">
-                            ${channel.members.map(member => `
-                                <div class="channel-member">
-                                    <img src="${member.avatar}" alt="${member.username}" class="member-avatar-small">
-                                    <span>${member.displayName || member.username}</span>
-                                    ${member.mute ? '<i class="fas fa-microphone-slash" style="color: var(--danger);"></i>' : ''}
-                                    ${member.deaf ? '<i class="fas fa-deaf" style="color: var(--muted);"></i>' : ''}
-                                </div>
-                            `).join('')}
+                container.innerHTML = humanMembers.map(member => `
+                    <div class="online-member">
+                        <img src="${member.avatar_url}" alt="${member.username}" class="member-avatar">
+                        <div>
+                            <div class="member-name">${member.username}</div>
+                            ${member.game ? `<div class="playing">🎮 ${member.game.name}</div>` : ''}
+                            ${member.status === 'dnd' ? '<div class="playing" style="color: var(--danger);">⛔ Do Not Disturb</div>' : ''}
+                            ${member.status === 'idle' ? '<div class="playing" style="color: var(--warning);">💤 Away</div>' : ''}
                         </div>
                     </div>
                 `).join('');
             }
 
+            detectNewMembers(currentMembers) {
+                const currentMemberIds = new Set(currentMembers.map(m => m.id));
+                const newMembers = currentMembers.filter(m => !this.previousMembers.has(m.id));
+                
+                // Show notifications for new members (first time only)
+                if (this.previousMembers.size > 0) {
+                    newMembers.forEach(member => {
+                        this.showJoinNotification(member);
+                    });
+                }
+                
+                this.previousMembers = currentMemberIds;
+            }
+
+            showJoinNotification(member) {
+                const notification = document.createElement('div');
+                notification.className = 'join-notification';
+                notification.innerHTML = `
+                    <div class="notification-content">
+                        <img src="${member.avatar_url}" alt="${member.username}">
+                        <div>
+                            <strong>${member.username}</strong> joined the server!
+                            ${member.game ? `<br><small>Playing ${member.game.name}</small>` : ''}
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                // Remove notification after 5 seconds
+                setTimeout(() => {
+                    notification.style.animation = 'slideIn 0.5s ease reverse';
+                    setTimeout(() => notification.remove(), 500);
+                }, 5000);
+            }
+
             async loadRecentMessages() {
                 try {
-                    const messages = await this.makeAPIRequest('/server/recent-messages');
-                    this.updateRecentMessages(messages);
+                    // This would typically come from your own API
+                    // For demo purposes, we'll create mock messages
+                    const mockMessages = [
+                        {
+                            author: 'Maffioza',
+                            avatar: 'https://cdn.discordapp.com/avatars/1033615399763320862/5b2be06b8f408ef53a251aeb4f143673.png',
+                            content: 'New tournament starting this weekend! Get ready everyone! 🏆',
+                            timestamp: '2 hours ago'
+                        },
+                        {
+                            author: 'linux',
+                            avatar: 'https://cdn.discordapp.com/avatars/1012982396674641930/c7cb8fae595373fe5789a9c3f7a3d531.png',
+                            content: 'Practice session tonight at 8 PM UTC. Focus on combo breaks.',
+                            timestamp: '4 hours ago'
+                        },
+                        {
+                            author: 'Minty',
+                            avatar: 'https://cdn.discordapp.com/avatars/1011673048090411039/23c687f5482ff66a98aca89cfb294f84.png',
+                            content: 'Just hit 20k kills! Thanks for the support everyone! 🎉',
+                            timestamp: '6 hours ago'
+                        }
+                    ];
+
+                    this.updateRecentMessages(mockMessages);
                 } catch (error) {
-                    console.log('Failed to load recent messages from API');
-                    this.useMockMessages();
+                    console.log('Failed to load recent messages:', error);
                 }
             }
 
             updateRecentMessages(messages) {
                 const container = document.getElementById('recent-messages');
-                if (!container) return;
-                
-                if (!messages || messages.length === 0) {
-                    container.innerHTML = `
-                        <div style="text-align: center; color: var(--muted);">
-                            <i class="fas fa-comment-slash" style="font-size: 2rem; margin-bottom: 10px;"></i>
-                            <p>Нет сообщений для отображения</p>
-                        </div>
-                    `;
-                    return;
-                }
-
                 container.innerHTML = messages.map(msg => `
                     <div class="message">
                         <div class="message-header">
-                            <img src="${msg.author.avatar}" alt="${msg.author.username}" class="message-avatar">
-                            <span class="message-author">${msg.author.username}</span>
-                            <span class="message-time">#${msg.channel}</span>
-                            <span class="message-time" style="margin-left: auto;">
-                                ${new Date(msg.timestamp).toLocaleTimeString()}
-                            </span>
+                            <img src="${msg.avatar}" alt="${msg.author}" class="message-avatar">
+                            <span class="message-author">${msg.author}</span>
+                            <span class="message-time">${msg.timestamp}</span>
                         </div>
-                        <div class="message-content">
-                            ${msg.content || '(вложение)'}
-                            ${msg.attachments ? ' 📎' : ''}
-                        </div>
+                        <div class="message-content">${msg.content}</div>
                     </div>
                 `).join('');
             }
 
-            // Mock data for fallback
-            useMockStats() {
-                const mockStats = {
-                    totalMembers: 75,
-                    onlineMembers: 24,
-                    playingGames: 8,
-                    inVoice: 6
-                };
-                this.updateServerStats(mockStats);
-            }
-
-            useMockMembers() {
-                const mockMembers = [
-                    {
-                        id: '1',
-                        username: 'Maffioza',
-                        displayName: 'Maffioza',
-                        avatar: 'https://cdn.discordapp.com/avatars/1033615399763320862/5b2be06b8f408ef53a251aeb4f143673.png',
-                        status: 'online',
-                        game: { name: 'The Strongest Battlegrounds' },
-                        streaming: null,
-                        inVoice: true,
-                        voiceChannel: 'General'
-                    },
-                    {
-                        id: '2',
-                        username: 'linux',
-                        displayName: 'linux',
-                        avatar: 'https://cdn.discordapp.com/avatars/1012982396674641930/c7cb8fae595373fe5789a9c3f7a3d531.png',
-                        status: 'idle',
-                        game: null,
-                        streaming: null,
-                        inVoice: false,
-                        voiceChannel: null
-                    }
-                ];
-                this.updateOnlineMembers(mockMembers);
-            }
-
-            useMockMessages() {
-                const mockMessages = [
-                    {
-                        id: '1',
-                        content: 'Новый турнир в эти выходные! Готовьтесь! 🏆',
-                        author: {
-                            username: 'Maffioza',
-                            avatar: 'https://cdn.discordapp.com/avatars/1033615399763320862/5b2be06b8f408ef53a251aeb4f143673.png',
-                            bot: false
-                        },
-                        channel: 'general',
-                        timestamp: Date.now() - 2 * 60 * 60 * 1000,
-                        attachments: false
-                    }
-                ];
-                this.updateRecentMessages(mockMessages);
-            }
-
             startAutoRefresh() {
-                setInterval(() => this.loadServerStats(), CONFIG.API.UPDATE_INTERVALS.STATS);
-                setInterval(() => this.loadOnlineMembers(), CONFIG.API.UPDATE_INTERVALS.ONLINE);
-                setInterval(() => this.loadVoiceChannels(), CONFIG.API.UPDATE_INTERVALS.ONLINE);
-                setInterval(() => this.loadRecentMessages(), CONFIG.API.UPDATE_INTERVALS.MESSAGES);
+                setInterval(() => this.loadServerStats(), CONFIG.DISCORD.UPDATE_INTERVALS.ONLINE);
+                setInterval(() => this.loadOnlineMembers(), CONFIG.DISCORD.UPDATE_INTERVALS.ONLINE);
+                setInterval(() => this.loadRecentMessages(), CONFIG.DISCORD.UPDATE_INTERVALS.MESSAGES);
             }
         }
 
@@ -2247,23 +1994,19 @@
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
 
-        if (mobileMenuBtn && navLinks) {
-            mobileMenuBtn.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-            });
-        }
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
 
         // Navbar Scroll Effect
         const navbar = document.querySelector('.navbar');
-        if (navbar) {
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            });
-        }
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
 
         // Smooth Scrolling for Navigation Links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -2276,30 +2019,28 @@
                         block: 'start'
                     });
                     // Close mobile menu if open
-                    if (navLinks) navLinks.classList.remove('active');
+                    navLinks.classList.remove('active');
                 }
             });
         });
 
         // Scroll to Top Button
         const scrollToTopBtn = document.getElementById('scrollToTop');
-        if (scrollToTopBtn) {
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) {
-                    scrollToTopBtn.classList.add('visible');
-                } else {
-                    scrollToTopBtn.classList.remove('visible');
-                }
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+        
+        scrollToTopBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
-            
-            scrollToTopBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        }
+        });
 
         // FAQ Accordion
         document.querySelectorAll('.faq-question').forEach(question => {
@@ -2340,8 +2081,6 @@
 
         function animateValue(id, start, end, duration) {
             const obj = document.getElementById(id);
-            if (!obj) return;
-            
             let startTimestamp = null;
             const step = (timestamp) => {
                 if (!startTimestamp) startTimestamp = timestamp;
@@ -2368,16 +2107,11 @@
 
         // Start all systems
         document.addEventListener('DOMContentLoaded', () => {
-            // Check if elements exist before initializing
-            if (typewriterElement) typeWriter();
-            if (canvas) drawParticles();
-            
-            setupFilterSystem();
+            typeWriter();
+            drawParticles();
             new TSBStatsTracker();
             new DiscordIntegration();
         });
     </script>
 </body>
 </html>
-
-
